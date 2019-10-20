@@ -796,3 +796,7 @@ export const JeremyDwayne = {
     },
   ],
 };
+export const layday = {
+  nickname: 'layday',
+  github: 'layday',
+};
