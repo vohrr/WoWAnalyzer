@@ -1,5 +1,42 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, layday } from 'CONTRIBUTORS';
+import {
+  Yajinni,
+  Mamtooth,
+  Zerotorescue,
+  Putro,
+  joshinator,
+  Gebuz,
+  ackwell,
+  emallson,
+  blazyb,
+  Dambroda,
+  Nalhan,
+  Satyric,
+  niseko,
+  Khadaj,
+  Fyruna,
+  Matardarix,
+  jos3p,
+  Aelexe,
+  Chizu,
+  Hartra344,
+  Hordehobbs,
+  Dorixius,
+  Sharrq,
+  Scotsoo,
+  HolySchmidt,
+  Zeboot,
+  Abelito75,
+  Anatta336,
+  HawkCorrigan,
+  Amrux,
+  Qbz,
+  Viridis,
+  Juko8,
+  fluffels,
+  Draenal,
+  layday,
+} from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
