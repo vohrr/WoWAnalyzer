@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import { calculatePrimaryStat } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { calculatePrimaryStat } from 'common/stats';
+import { dependency } from 'parser/core/Module';
 
 /**
  * Eternal Alchemist Stone -
@@ -10,25 +11,34 @@ import { calculatePrimaryStat } from 'common/stats';
  * Equip: Increases the effect that healing and mana potions have on the wearer by 40%.  This effect does not stack.
  */
 class EternalAlchemistStone extends Analyzer {
-  static dependencies = {
-    statTracker: StatTracker,
-  };
+  @dependency private readonly statTracker!: StatTracker;
 
-  constructor({ statTracker, ...options }: any) {
+  constructor(options: any) {
     super(options);
-    const item = this.selectedCombatant.getItem(ITEMS.ETERNAL_ALCHEMIST_STONE.id);
+    if (this.statTracker === undefined) {
+      if (!options.statTracker) {
+        throw new Error('`statTracker` is missing from module options!');
+      } else {
+        throw new Error(
+          'Compiler set statTracker prop to `undefined` while its value was set in `super`',
+        );
+      }
+    }
+    const item = this.selectedCombatant.getItem(
+      ITEMS.ETERNAL_ALCHEMIST_STONE.id,
+    );
     this.active = !!item;
     if (!this.active) {
       return;
     }
     const buffStat = calculatePrimaryStat(455, 1648, item.itemLevel);
-    statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_STRENGTH_BUFF, {
+    this.statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_STRENGTH_BUFF, {
       strength: buffStat,
     });
-    statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_AGILITY_BUFF, {
+    this.statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_AGILITY_BUFF, {
       agility: buffStat,
     });
-    statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_INTELLECT_BUFF, {
+    this.statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_INTELLECT_BUFF, {
       intellect: buffStat,
     });
   }

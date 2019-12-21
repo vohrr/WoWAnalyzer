@@ -2367,6 +2367,13 @@ babel-plugin-transform-react-remove-prop-types@0.4.24:
   resolved "https://npm-registry.emico.nl/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.24.tgz#f2edaf9b4c6a5fbe5c1d678bfb531078c1555f3a"
   integrity sha512-eqj0hVcJUR57/Ug2zE1Yswsw4LhuqqHhD+8v120T1cl3kjg76QwtyBrdIk4WVwK+lAhBJVYCd/v+4nc4y+8JsA==
 
+babel-plugin-transform-typescript-metadata@^0.2.2:
+  version "0.2.2"
+  resolved "https://npm-registry.emico.nl/babel-plugin-transform-typescript-metadata/-/babel-plugin-transform-typescript-metadata-0.2.2.tgz#fc44611187409ed9d5cb372ca2f85939a359cada"
+  integrity sha512-wWRw1p3IDNZN8l3UOLgeScq9Nhh4lvxT7ZOvUzYi5sMw8lUWW+KdRlnBeQKehHAsgDs5TR6PvMJmsQ6e6NmKCg==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0"
+
 babel-polyfill@6.23.0:
   version "6.23.0"
   resolved "https://npm-registry.emico.nl/babel-polyfill/-/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
@@ -10787,6 +10794,11 @@ redux@^4.0.4:
   dependencies:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
+
+reflect-metadata@^0.1.13:
+  version "0.1.13"
+  resolved "https://npm-registry.emico.nl/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
+  integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
 
 reflect.ownkeys@^0.2.0:
   version "0.2.0"

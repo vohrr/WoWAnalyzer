@@ -37,6 +37,7 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "reflect-metadata": "^0.1.13",
     "sass-text-stroke": "1.0.1",
     "universal-cookie": "^2.2.0"
   },
@@ -53,6 +54,7 @@
     "acorn-dynamic-import": "^3.0.0",
     "archiver": "^3.1.1",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-plugin-transform-typescript-metadata": "^0.2.2",
     "customize-cra": "^0.9.1",
     "decompress": "^4.2.0",
     "dotenv": "^6.2.0",

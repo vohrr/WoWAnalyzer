@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { formatMilliseconds } from 'common/format';
 
 import CombatLogParser from './CombatLogParser';
@@ -7,6 +9,24 @@ export interface Options {
   [prop: string]: any;
   owner: CombatLogParser;
   priority: number;
+}
+
+export function dependency(target: Module, prop: string) {
+  const dependency = Reflect.getMetadata('design:type', target, prop);
+
+  if (!Module.isPrototypeOf(dependency)) {
+    throw new Error(
+      `${target.constructor.name}'s dependency \`${prop}\` is invalid. Expected a Module, got \`${dependency.name}\`.`,
+    );
+  }
+
+  const constructor = target.constructor as typeof Module;
+
+  if (constructor.dependencies === Module.dependencies) {
+    constructor.dependencies = {};
+  }
+
+  constructor.dependencies[prop] = dependency;
 }
 
 class Module {
