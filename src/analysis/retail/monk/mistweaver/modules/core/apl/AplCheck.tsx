@@ -78,11 +78,17 @@ const commonTop = [
     spell: talents.RENEWING_MIST_TALENT,
     condition: cnd.describe(
       cnd.and(
-        cnd.spellCharges(talents.RENEWING_MIST_TALENT, { atLeast: 2 }),
+        cnd.spellCharges(talents.RENEWING_MIST_TALENT, {
+          atLeast: cnd.hasTalent(talents.POOL_OF_MISTS_TALENT) ? 3 : 2,
+        }),
         cnd.spellAvailable(talents.RENEWING_MIST_TALENT),
-        cnd.hasTalent(talents.RISING_MIST_TALENT),
       ),
-      (tense) => <>you {tenseAlt(tense, 'have', 'had')} 2 charges</>,
+      (tense) => (
+        <>
+          you {tenseAlt(tense, 'have', 'had')} {cnd.hasTalent(talents.POOL_OF_MISTS_TALENT) ? 3 : 2}{' '}
+          charges
+        </>
+      ),
     ),
   },
   {
@@ -108,6 +114,24 @@ const JFS_AT = {
 
 const RM_AT_CORE = [VIVIFY_8_REMS, JFS_AT, VIVIFY_6_REMS];
 
+const RM_CORE = [VIVIFY_8_REMS, VIVIFY_6_REMS];
+
+const rotation_rm_sg = build([
+  {
+    spell: talents.RENEWING_MIST_TALENT,
+    condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
+      <>
+        {' '}
+        you cast <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} />
+      </>
+    )),
+  },
+  ...commonTop,
+  SHEILUNS_SHAOHAOS,
+  ...RM_CORE,
+  ...commonBottom,
+]);
+
 const rotation_rm_at_sg = build([
   {
     spell: talents.RENEWING_MIST_TALENT,
@@ -132,10 +156,27 @@ const rotation_rm_at_sg = build([
   ...commonBottom,
 ]);
 
+const rotation_rm_mep = build([
+  {
+    spell: talents.RENEWING_MIST_TALENT,
+    condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
+      <>
+        {' '}
+        you cast <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} />
+      </>
+    )),
+  },
+  ...commonTop,
+  ...RM_CORE,
+  ...commonBottom,
+]);
+
 const rotation_fallback = build([...commonTop, ...commonBottom]);
 
 export enum MistweaverApl {
   RisingMistAncientTeachingsShaohaos,
+  RisingMistShaohaosLessons,
+  RisingMistMendingProliferation,
   AwakenedFaeline,
   TearOfMorning,
   Fallback,
@@ -143,12 +184,18 @@ export enum MistweaverApl {
 
 export const chooseApl = (info: PlayerInfo): MistweaverApl => {
   if (
-    info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
     info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
-    info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT) &&
     info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT)
   ) {
-    return MistweaverApl.RisingMistAncientTeachingsShaohaos;
+    if (info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT)) {
+      if (info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT))
+        {return MistweaverApl.RisingMistAncientTeachingsShaohaos;}
+      else {
+        return MistweaverApl.RisingMistShaohaosLessons;
+      }
+    } else if (info.combatant.hasTalent(talents.MENDING_PROLIFERATION_TALENT)) {
+      return MistweaverApl.RisingMistMendingProliferation;
+    }
   } else if (
     info.combatant.hasTalent(talents.AWAKENED_JADEFIRE_TALENT) &&
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT)
@@ -162,6 +209,8 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
 
 const apls: Record<MistweaverApl, Apl> = {
   [MistweaverApl.RisingMistAncientTeachingsShaohaos]: rotation_rm_at_sg,
+  [MistweaverApl.RisingMistShaohaosLessons]: rotation_rm_sg,
+  [MistweaverApl.RisingMistMendingProliferation]: rotation_rm_mep,
   [MistweaverApl.AwakenedFaeline]: rotation_fallback,
   [MistweaverApl.TearOfMorning]: rotation_fallback,
   [MistweaverApl.Fallback]: rotation_fallback,

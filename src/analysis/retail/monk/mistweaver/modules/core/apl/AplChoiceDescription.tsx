@@ -13,6 +13,20 @@ const aplTitle = (choice: MistweaverApl) => {
           <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />
         </>
       );
+    case MistweaverApl.RisingMistMendingProliferation:
+      return (
+        <>
+          <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
+          <SpellLink spell={talents.MENDING_PROLIFERATION_TALENT} />
+        </>
+      );
+    case MistweaverApl.RisingMistShaohaosLessons:
+      return (
+        <>
+          <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
+          <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />
+        </>
+      );
     case MistweaverApl.AwakenedFaeline:
       return (
         <>
@@ -34,6 +48,7 @@ const RisingMistDescription = () => {
   return (
     <>
       <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> to extend hots and{' '}
+      <SpellLink spell={SPELLS.VIVIFY} /> to deliver the majority of healing.
     </>
   );
 };
@@ -44,6 +59,18 @@ const AncientTeachingsDescription = () => {
       to heal by using your damaging abilities (<SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
       , <SpellLink spell={SPELLS.BLACKOUT_KICK} />, and <SpellLink spell={SPELLS.TIGER_PALM} />) via{' '}
       <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} />.
+    </>
+  );
+};
+
+const MendingProliferationDescription = () => {
+  return (
+    <>
+      You will aim to maximize the length of your{' '}
+      <SpellLink spell={talents.ENVELOPING_MIST_TALENT} /> and prioritize casting{' '}
+      <SpellLink spell={SPELLS.VIVIFY} /> to on targets with your
+      <SpellLink spell={talents.MENDING_PROLIFERATION_TALENT} /> or{' '}
+      <SpellLink spell={talents.ENVELOPING_MIST_TALENT} /> buffs.{' '}
     </>
   );
 };
@@ -83,6 +110,45 @@ const RisingMistAncientTeachingsShaohaosDescription = () => {
         <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
         <SpellLink spell={talents.JADEFIRE_STOMP_TALENT} /> as often as necessary to maintain the{' '}
         <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
+        <ThunderFocusTeaREM />
+      </p>
+    </>
+  );
+};
+
+const RisingMistShaohaosLessonsDescription = () => {
+  return (
+    <>
+      <p>
+        The {aplTitle(MistweaverApl.RisingMistShaohaosLessons)} rotation uses{' '}
+        <RisingMistDescription />
+      </p>
+      <p>
+        When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible to maintain high
+        counts of <SpellLink spell={talents.RENEWING_MIST_TALENT} />. <ShaohaosDescription />
+        <ThunderFocusTeaREM />
+      </p>
+    </>
+  );
+};
+
+const RisingMistMendingProliferationDescription = () => {
+  return (
+    <>
+      <p>
+        The {aplTitle(MistweaverApl.RisingMistMendingProliferation)} rotation uses{' '}
+        <RisingMistDescription />
+      </p>
+      <p>
+        When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.MENDING_PROLIFERATION_TALENT} />, you cast{' '}
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible to maintain high
+        counts of <SpellLink spell={talents.RENEWING_MIST_TALENT} />.{' '}
+        <MendingProliferationDescription />
         <ThunderFocusTeaREM />
       </p>
     </>
@@ -133,6 +199,10 @@ const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
   switch (aplChoice) {
     case MistweaverApl.RisingMistAncientTeachingsShaohaos:
       return <RisingMistAncientTeachingsShaohaosDescription />;
+    case MistweaverApl.RisingMistShaohaosLessons:
+      return <RisingMistShaohaosLessonsDescription />;
+    case MistweaverApl.RisingMistMendingProliferation:
+      return <RisingMistMendingProliferationDescription />;
     case MistweaverApl.AwakenedFaeline:
       return <CleaveBuildNotYetSupportedDescription />;
     case MistweaverApl.TearOfMorning:
